@@ -1,0 +1,96 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id         String  @id @default(uuid())
+  email      String   @unique
+  name       String?
+  username   String  @unique
+  role       UserRole? @default(user)
+  password   String
+  phoneNumber String?
+  address     String?
+  photo       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  adoptionRequest  AdoptionRequest[]
+  needPasswordChange Boolean @default(true)
+  status   UserAccountStatus? @default(Activate)
+
+  @@map("users")
+}
+model Pet{
+  id          String  @id @default(uuid())
+  name        String
+  species     PetSpecies
+  breed       String
+  photos      String[]
+  age         Int @default(0)
+  size        PetSize @default(small)
+  gender      Gender
+  location    String
+  description String
+  temperament String?
+  medicalHistory String
+  adoptionRequirements String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isDeleted Boolean @default(false)
+ adoptionRequest  AdoptionRequest[]
+
+  @@map("pets")
+}
+
+model AdoptionRequest{
+  id        String  @id @default(uuid())
+  userId    String 
+  petId     String
+  status    AdoptionStatus @default(PENDING)
+  petOwnershipExperience String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+  pet Pet @relation(fields: [petId], references: [id])
+
+  @@map("adoptionRequests")
+}
+
+enum PetSize {
+  small
+  medium
+  large
+}
+enum Gender {
+  male
+  female
+}
+
+enum AdoptionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum UserRole {
+  admin
+  user
+}
+
+enum PetSpecies {
+  dog
+  cat
+}
+enum UserAccountStatus {
+  Activate
+  deactivate 
+}
