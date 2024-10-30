@@ -9,7 +9,7 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 const refreshToken = async (token: string) => {
-  console.log(token);
+  // console.log(token);
   let decodedData;
   try {
     decodedData = jwtHelpers.verifyToken(
@@ -19,7 +19,7 @@ const refreshToken = async (token: string) => {
   } catch (err) {
     throw new Error("You are not authorized!");
   }
-  console.log({ decodedData });
+  // console.log({ decodedData });
   const userData = await prisma.user.findUniqueOrThrow({
     where: {
       email: (decodedData as CustomJwtPayload).email,
@@ -28,11 +28,11 @@ const refreshToken = async (token: string) => {
 
   const accessToken = jwtHelpers.generateToken(
     {
+      userId: userData.id,
       email: userData.email,
       role: userData.role,
     },
     config.jwt.access_token_secret as Secret,
-    config.jwt.access_token_expires_in as string
   );
 
   return {

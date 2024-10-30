@@ -59,6 +59,9 @@ const getPet = async (id: string) => {
       id,
       isDeleted: false,
     },
+    include: {
+      reviews: true
+    }
   });
   return result;
 };

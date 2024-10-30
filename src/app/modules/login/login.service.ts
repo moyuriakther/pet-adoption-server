@@ -7,13 +7,13 @@ import AppError from "../../errors/AppError";
 import prisma from "../../utils/prisma";
 
 const loginUser = async (payload: { email: string; password: string }) => {
-  console.log(payload);
+  // console.log({payload}, 'login payload');
   const isUserExist = await prisma.user.findUniqueOrThrow({
     where: {
       email: payload.email,
     },
   });
-  console.log(isUserExist);
+  // console.log({isUserExist});
   const isPasswordCorrect: boolean = await bcrypt.compare(
     payload.password,
     isUserExist.password
@@ -23,21 +23,21 @@ const loginUser = async (payload: { email: string; password: string }) => {
   }
   const accessToken = jwtHelpers.generateToken(
     {
+      userId: isUserExist.id,
       email: isUserExist.email,
       role: isUserExist.role,
     },
     config.jwt.access_token_secret as Secret,
-    config.jwt.access_token_expires_in as string
   );
   const refreshToken = jwtHelpers.generateToken(
     {
+      userId: isUserExist.id,
       email: isUserExist.email,
       role: isUserExist.role,
     },
     config.jwt.refresh_token_secret as Secret,
-    config.jwt.refresh_token_expires_in as string
   );
-
+  
   return {
     accessToken,
     refreshToken,

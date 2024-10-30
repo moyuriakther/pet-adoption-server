@@ -9,7 +9,7 @@ import { modifyQueryMiddleware } from "../../middlewares/modifyQuery";
 const router = Router();
 
 router.get("/", modifyQueryMiddleware, petController.getAllPets);
-router.get("/:id", auth(UserRole.admin, UserRole.user), petController.getPet);
+router.get("/:id", petController.getPet);
 router.post(
   "/",
   validateRequest(petValidation.createPetValidation),

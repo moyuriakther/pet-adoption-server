@@ -62,6 +62,12 @@ const updateAdoptionRequestStatus = async (id: string, data: any) => {
     },
     data,
   });
+  await prisma.pet.update({
+    where: {
+      id,
+    },data: {isAdopted: true}
+
+  })
   return result;
 };
 
