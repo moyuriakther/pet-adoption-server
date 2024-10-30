@@ -8,6 +8,15 @@ const getAllUsers = async () => {
   return result;
 };
 
+const getSingleUser = async(id: string) =>{
+  const result = await prisma.user.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+  return result;
+}
+
 const createUser = async (req: Request) => {
   console.log(req.body);
   const hashPassword: string = await bcrypt.hash(req.body.password, 12);
@@ -113,6 +122,7 @@ const updateUserRole = async (id: string, role: UserRole) => {
 
 export const userServices = {
   getAllUsers,
+  getSingleUser,
   createUser,
   getUserProfile,
   updateUserInformation,

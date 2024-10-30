@@ -14,6 +14,18 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
+const getSingleUser = catchAsync(async (req, res) => {
+  const id = req.params.id;
+  const result = await userServices.getSingleUser(id);
+  console.log({ result });
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User data Retrieved Successfully",
+    data: result,
+  });
+});
+
 const createUser = catchAsync(async (req, res) => {
   console.log(req.body);
   const result = await userServices.createUser(req);
@@ -80,6 +92,7 @@ const updateUserRole = catchAsync(async (req, res) => {
 
 export const userController = {
   getAllUsers,
+  getSingleUser,
   createUser,
   userProfile,
   updateUserInformation,

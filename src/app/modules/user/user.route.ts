@@ -8,6 +8,7 @@ import { UserRole } from "@prisma/client";
 const router = Router();
 
 router.get("/users", auth(UserRole.admin), userController.getAllUsers);
+router.get("/users/:id", userController.getSingleUser);
 router.get(
   "/profile",
   auth(UserRole.admin, UserRole.user),

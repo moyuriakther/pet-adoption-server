@@ -56,18 +56,21 @@ const updateAdoptionRequestStatus = async (id: string, data: any) => {
       id,
     },
   });
-  const result = await prisma.adoptionRequest.update({
-    where: {
-      id,
-    },
-    data,
-  });
-  await prisma.pet.update({
-    where: {
-      id,
-    },data: {isAdopted: true}
 
-  })
+  const result = await prisma.$transaction(async (transactionClient) => {
+    const res = await transactionClient.adoptionRequest.update({
+      where: {
+        id,
+      },
+      data,
+    });
+    await transactionClient.pet.update({
+      where: {
+        id,
+      },data: {isAdopted: true} 
+    })
+    return res;
+});
   return result;
 };
 

@@ -47,7 +47,7 @@ model Pet{
   updatedAt   DateTime @updatedAt
   isDeleted Boolean @default(false)
   adoptionRequest  AdoptionRequest[]
-  isAdopted  Boolean
+  isAdopted  Boolean  @default(false)
   reviews            Review[] 
   @@map("pets")
 }

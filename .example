@@ -10,4 +10,5 @@ RESET_PASS_LINK=/api/auth/refresh-token,
 EMAIL=akthermoyuri@gmail.com,
 APP_PASS=jhebnlumzhbynbrm, 
 DATABASE_URL=postgresql://postgres:hJoyCuQecysSjeJKzYXApjVIUeTVuLCj@roundhouse.proxy.rlwy.net:26784/railway
+postgresql://postgres:HQYcrkazbbrFSCjVLVDxFVPvpQtRiLvW@autorack.proxy.rlwy.net:18497/railway
 
