@@ -8,7 +8,8 @@ RESET_PASS_TOKEN=5b1464f29020351cf4584c879580df099316af43135215cff02baeaa58b8dc1
 RESET_PASS_TOKEN_EXPIRES_IN=5m,
 RESET_PASS_LINK=/api/auth/refresh-token,
 EMAIL=akthermoyuri@gmail.com,
-APP_PASS=jhebnlumzhbynbrm, 
+APP_PASS=jhebnlumzhbynbrm,
 DATABASE_URL=postgresql://postgres:hJoyCuQecysSjeJKzYXApjVIUeTVuLCj@roundhouse.proxy.rlwy.net:26784/railway
 postgresql://postgres:HQYcrkazbbrFSCjVLVDxFVPvpQtRiLvW@autorack.proxy.rlwy.net:18497/railway
-
+DATABASE_URL=postgresql://postgres:578149@localhost:5432/hr_management?schema=public
+# DATABASE_URL=postgresql://postgres:postgres@localhost:5432/mydatabase
