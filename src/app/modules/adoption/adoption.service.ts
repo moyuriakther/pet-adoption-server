@@ -66,7 +66,7 @@ const updateAdoptionRequestStatus = async (id: string, data: any) => {
     });
     await transactionClient.pet.update({
       where: {
-        id,
+        id:res.petId,
       },data: {isAdopted: true} 
     })
     return res;
